@@ -1,0 +1,9 @@
+{
+  "name": "SSP",
+  "short_name": "SSP",
+  "start_url": "./SSP_FINAL_RESET_VISIVEL-2.html",
+  "display": "standalone",
+  "background_color": "#05070b",
+  "theme_color": "#05070b",
+  "orientation": "portrait"
+}
