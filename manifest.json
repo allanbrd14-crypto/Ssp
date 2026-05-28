@@ -1,12 +1,12 @@
 {
   "name": "SSP Diário",
   "short_name": "SSP",
-  "start_url": "/Ssp/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#05070b",
   "theme_color": "#05070b",
   "orientation": "portrait",
-  "scope": "/Ssp/",
+  "scope": "./",
 "icons": [
   {
     "src": "/Ssp/icon.png",
