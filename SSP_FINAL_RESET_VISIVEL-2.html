@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSP • Diário de Bordo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+    color:white;
+    padding:22px 18px 40px;
+    transition:1s;
+    background:#05070b;
+}
+
+.container{
+    max-width:520px;
+    margin:auto;
+    padding-top:70px;
+}
+
+.top{
+    margin-bottom:28px;
+}
+
+.hello{
+    font-size:30px;
+    font-weight:600;
+    color:#f3f8ff;
+    margin-bottom:8px;
+}
+
+.datetime{
+    color:#8aa3c3;
+    font-size:15px;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+    border-radius:30px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:
+    0 8px 30px rgba(0,0,0,0.25),
+    inset 0 0 1px rgba(255,255,255,0.2);
+    transition:0.5s;
+}
+
+.produtividade{
+    text-align:center;
+}
+
+.estado{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 16px;
+    border-radius:999px;
+    font-size:14px;
+    margin-bottom:20px;
+    transition:0.5s;
+}
+
+.circle{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    border:8px solid #1f8fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 16px;
+    font-size:42px;
+    font-weight:600;
+    color:#eaf4ff;
+    transition:0.5s;
+}
+
+.compare{
+    color:#89a2c2;
+    font-size:14px;
+    margin-bottom:12px;
+}
+
+.message{
+    color:#dcecff;
+    font-size:15px;
+    transition:0.5s;
+}
+
+.section-title{
+    font-size:18px;
+    margin-bottom:18px;
+    color:#eaf4ff;
+    font-weight:500;
+}
+
+.task{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:15px 0;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.task:last-child{
+    border-bottom:none;
+}
+
+.task input{
+    width:20px;
+    height:20px;
+    accent-color:#1f8fff;
+}
+
+.task label{
+    color:#dcecff;
+    font-size:15px;
+}
+
+.frase-hoje{
+    color:#dcecff;
+    line-height:1.8;
+    font-size:16px;
+}
+
+.cartao{
+    text-align:center;
+}
+
+.cartao-frase{
+    font-size:20px;
+    color:#dcecff;
+    line-height:1.5;
+}
+
+.historico-item{
+    margin-bottom:18px;
+}
+
+.historico-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+    color:#dcecff;
+    font-size:14px;
+}
+
+.barra{
+    width:100%;
+    height:10px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.06);
+    overflow:hidden;
+}
+
+.preenchimento{
+    height:100%;
+    border-radius:999px;
+    background:linear-gradient(90deg,#1f8fff,#67b7ff);
+}
+
+textarea{
+    width:100%;
+    min-height:120px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:18px;
+    color:white;
+    font-family:'Inter',sans-serif;
+    resize:none;
+    outline:none;
+    transition:0.3s;
+}
+
+textarea:focus{
+    border-color:#1f8fff66;
+    box-shadow:0 0 20px #1f8fff22;
+}
+
+textarea::placeholder{
+    color:#70839c;
+}
+
+
+
+.card{
+    animation:fadeUp 2.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition:0.8s;
+    opacity:0;
+    animation-fill-mode:forwards;
+}
+
+.card:nth-of-type(1){animation-delay:0.2s;}
+.card:nth-of-type(2){animation-delay:0.5s;}
+.card:nth-of-type(3){animation-delay:0.8s;}
+.card:nth-of-type(4){animation-delay:1.1s;}
+.card:nth-of-type(5){animation-delay:1.4s;}
+.card:nth-of-type(6){animation-delay:1.7s;}
+
+.card:hover{
+    transform:translateY(-6px) scale(1.01);
+    box-shadow:
+    0 18px 45px rgba(0,0,0,0.45),
+    0 0 35px rgba(31,143,255,0.18);
+}
+
+.task{
+    transition:0.3s;
+}
+
+.task input:checked + label{
+    color:#9fd0ff;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0px);
+    }
+}
+
+
+
+
+.circle{
+    animation:pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.03);}
+    100%{transform:scale(1);}
+}
+
+.typing{
+    overflow:hidden;
+    white-space:nowrap;
+    border-right:2px solid rgba(255,255,255,0.4);
+    width:0;
+    animation:typing 3s steps(40,end) forwards,
+              blink 0.8s infinite;
+}
+
+@keyframes typing{
+    from{width:0}
+    to{width:100%}
+}
+
+@keyframes blink{
+    50%{border-color:transparent}
+}
+
+.historico-expand{
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px solid rgba(255,255,255,0.06);
+    display:none;
+    color:#9fb7d4;
+    line-height:1.7;
+    font-size:14px;
+}
+
+.historico-item{
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.historico-item:hover{
+    transform:translateX(4px);
+}
+
+
+
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at 20% 20%, rgba(31,143,255,0.10), transparent 30%),
+    radial-gradient(circle at 80% 30%, rgba(31,143,255,0.06), transparent 35%),
+    radial-gradient(circle at 50% 80%, rgba(31,143,255,0.08), transparent 40%);
+    z-index:-3;
+    animation:ambient 14s ease-in-out infinite alternate;
+}
+
+body::after{
+    content:'';
+    position:fixed;
+    width:120%;
+    height:120%;
+    background:radial-gradient(circle, rgba(31,143,255,0.05), transparent 70%);
+    filter:blur(80px);
+    z-index:-2;
+    top:-10%;
+    left:-10%;
+    animation:depth 18s linear infinite;
+}
+
+@keyframes ambient{
+    0%{
+        transform:translateY(0px) scale(1);
+    }
+
+    100%{
+        transform:translateY(-20px) scale(1.05);
+    }
+}
+
+@keyframes depth{
+    0%{
+        transform:translateX(0px) translateY(0px);
+    }
+
+    50%{
+        transform:translateX(-20px) translateY(15px);
+    }
+
+    100%{
+        transform:translateX(0px) translateY(0px);
+    }
+}
+
+.cartao{
+    position:relative;
+    overflow:hidden;
+}
+
+.cartao::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:80%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.08),
+        transparent
+    );
+    transform:skewX(-20deg);
+    animation:shine 7s linear infinite;
+}
+
+@keyframes shine{
+    0%{
+        left:-120%;
+    }
+
+    100%{
+        left:140%;
+    }
+}
+
+.modalHistorico{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.65);
+    backdrop-filter:blur(12px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+    padding:20px;
+}
+
+.modalCard{
+    width:100%;
+    max-width:420px;
+    background:rgba(12,16,24,0.92);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:30px;
+    padding:26px;
+    animation:fadeModal 0.5s ease;
+}
+
+@keyframes fadeModal{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(0.96);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0px) scale(1);
+    }
+}
+
+.modalTitulo{
+    font-size:24px;
+    margin-bottom:18px;
+    color:#eaf4ff;
+}
+
+.modalTexto{
+    color:#a8bfdc;
+    line-height:1.9;
+}
+
+.fechar{
+    margin-top:24px;
+    width:100%;
+    border:none;
+    background:#1f8fff22;
+    color:#cfe7ff;
+    padding:14px;
+    border-radius:16px;
+    font-size:15px;
+}
+
+
+
+
+.card{
+    position:relative;
+    overflow:hidden;
+    border-radius:32px 28px 36px 30px;
+    backdrop-filter:blur(24px);
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,0.06),
+        rgba(255,255,255,0.03)
+    );
+}
+
+.card::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    background:
+    linear-gradient(
+        120deg,
+        transparent 20%,
+        rgba(255,255,255,0.04) 50%,
+        transparent 80%
+    );
+    opacity:0.8;
+    animation:glassMove 10s linear infinite;
+    pointer-events:none;
+}
+
+@keyframes glassMove{
+    0%{
+        transform:translateX(-30%);
+    }
+
+    100%{
+        transform:translateX(30%);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.add-note-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:14px;
+    background:rgba(31,143,255,0.12);
+    color:#cfe7ff;
+    font-size:26px;
+    backdrop-filter:blur(12px);
+    transition:0.4s;
+}
+
+.add-note-btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 24px rgba(31,143,255,0.18);
+}
+
+.note-item{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.06);
+    padding:18px;
+    border-radius:22px;
+    color:#dcecff;
+    margin-bottom:14px;
+    line-height:1.7;
+    animation:fadeNote 0.5s ease;
+}
+
+@keyframes fadeNote{
+    from{
+        opacity:0;
+        transform:translateY(18px);
+        filter:blur(6px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0px);
+        filter:blur(0px);
+    }
+}
+
+
+
+
+.note-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:14px;
+}
+
+.note-text{
+    flex:1;
+}
+
+.delete-note{
+    width:34px;
+    height:34px;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,80,80,0.10);
+    color:#ffb2b2;
+    font-size:16px;
+    transition:0.3s;
+}
+
+.delete-note:hover{
+    transform:scale(1.08);
+    background:rgba(255,80,80,0.18);
+}
+
+
+
+.encerrar-btn{
+    width:100%;
+    border:none;
+    padding:18px;
+    border-radius:22px;
+    font-size:17px;
+    font-weight:600;
+    background:linear-gradient(135deg,#1f8fff,#67b7ff);
+    color:white;
+    transition:0.4s;
+    box-shadow:0 10px 30px rgba(31,143,255,0.25);
+}
+
+.encerrar-btn:hover{
+    transform:translateY(-3px) scale(1.01);
+    box-shadow:0 16px 40px rgba(31,143,255,0.35);
+}
+
+
+.turno-bloqueado{
+    opacity:0.6;
+    pointer-events:none;
+    filter:grayscale(0.2);
+}
+
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+    
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <div class="top">
+        <div class="hello" id="helloUser">Olá, Allan.</div>
+        <div class="datetime" id="datahora"></div>
+    </div>
+
+    <div class="card produtividade">
+
+        <div class="estado" id="estadoDia">
+            🔴 Crítico
+        </div>
+
+        <div class="circle" id="percentual">
+            0%
+        </div>
+
+        <div class="compare">
+            +12% que ontem
+        </div>
+
+        <div class="message typing" id="mensagem">
+            Pendências acumuladas.
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="section-title">
+            📋 Diário de Bordo
+        </div>
+
+        <div class="task">
+            <input type="checkbox" class="check" data-peso="20">
+            <label>Limpeza e organização</label>
+        </div>
+
+        <div class="task">
+            <input type="checkbox" class="check" data-peso="15">
+            <label>Ronda emergenciais</label>
+        </div>
+
+        <div class="task">
+            <input type="checkbox" class="check" data-peso="30">
+            <label>Abastecimento fábrica</label>
+        </div>
+
+        <div class="task">
+            <input type="checkbox" class="check" data-peso="10">
+            <label>Esvaziar lixeiras</label>
+        </div>
+
+        <div class="task">
+            <input type="checkbox" class="check" data-peso="25">
+            <label>Abastecimento açúcar sala massa</label>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="section-title">
+            🌌 Lembre-se
+        </div>
+
+        <div class="frase-hoje">
+            “Manter o fluxo.<br>
+            Evitar correria.<br>
+            Organização primeiro.”
+        </div>
+
+    </div>
+
+    <div class="card cartao">
+
+        <div class="section-title">
+            🎴 Cartão do Dia
+        </div>
+
+        <div class="cartao-frase">
+            “Organização mantém o fluxo.”
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="section-title">
+            📓 Histórico da Semana
+        </div>
+
+        <div id="historico"></div>
+
+    </div>
+
+    <div class="card">
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+
+            <div class="section-title" style="margin-bottom:0;">
+                📝 Anotações
+            </div>
+
+            <button class="add-note-btn" onclick="adicionarAnotacao()">
+                +
+            </button>
+
+        </div>
+
+        <div id="listaAnotacoes"></div>
+
+    </div>
+
+
+<div class="card" style="text-align:center;">
+
+    <button class="encerrar-btn" onclick="encerrarTurno()">
+        ✅ Encerrar Turno
+    </button>
+
+    <button onclick="resetarTurno()" 
+    style="margin-top:12px;
+    background:none;
+    border:none;
+    color:#7fa8d6;
+    font-size:13px;
+    cursor:pointer;">
+        resetar turno
+    </button>
+
+</div>
+
+
+</div>
+
+<script>
+
+
+
+const hoje = new Date().toLocaleDateString('pt-BR');
+
+const ultimoEncerramento = localStorage.getItem('ssp_turno_data');
+
+if(ultimoEncerramento === hoje){
+
+    setTimeout(() => {
+        bloquearTurno();
+    }, 300);
+
+}
+
+function bloquearTurno(){
+
+    document.querySelectorAll('input, textarea').forEach(el => {
+        el.disabled = true;
+    });
+
+    const addBtn = document.querySelector('.add-note-btn');
+
+    if(addBtn){
+        addBtn.disabled = true;
+        addBtn.style.opacity = '0.5';
+    }
+
+    const botao = document.querySelector('.encerrar-btn');
+
+    if(botao){
+        botao.innerText = '🔒 Turno encerrado';
+        botao.disabled = true;
+        botao.style.opacity = '0.5';
+    }
+
+}
+
+
+
+
+
+
+const agora = new Date();
+
+document.getElementById("datahora").innerText =
+agora.toLocaleDateString('pt-BR',{
+weekday:'long',
+day:'2-digit',
+month:'long'
+}) + ' • ' +
+agora.getHours().toString().padStart(2,'0') + ':' +
+agora.getMinutes().toString().padStart(2,'0');
+
+
+const orientacoes = {
+    'Limpeza e organização':'⚠️ Ambiente desorganizado aumenta falhas operacionais.',
+    'Ronda emergenciais':'⚠️ Rondas evitam problemas silenciosos no turno.',
+    'Abastecimento fábrica':'⚠️ Falta de abastecimento impacta diretamente a produção.',
+    'Esvaziar lixeiras':'⚠️ Acúmulo de resíduos compromete o ambiente.',
+    'Abastecimento açúcar sala massa':'⚠️ Açúcar não abastecido pode parar o fluxo da sala massa.'
+};
+
+
+const checks = document.querySelectorAll('.check');
+const percentual = document.getElementById('percentual');
+const mensagem = document.getElementById('mensagem');
+const estado = document.getElementById('estadoDia');
+const historico = document.getElementById('historico');
+
+checks.forEach(check => {
+    check.addEventListener('change', atualizar);
+});
+
+function atualizar(){
+
+    let valor = 0;
+
+    checks.forEach(c => {
+        if(c.checked){
+            valor += parseInt(c.dataset.peso);
+        }
+    });
+
+    percentual.innerText = valor + '%';
+
+    if(valor < 40){
+
+        document.body.style.background = '#05070b';
+
+        percentual.style.borderColor = '#ff5e5e';
+        percentual.style.boxShadow = '0 0 40px #ff5e5e33';
+
+        estado.innerHTML = '🔴 Crítico';
+        estado.style.background = 'rgba(255,94,94,0.12)';
+        estado.style.color = '#ffb2b2';
+
+        mensagem.innerHTML = 'Pendências acumuladas.';
+
+    }
+
+    else if(valor < 70){
+
+        document.body.style.background = '#08111c';
+
+        percentual.style.borderColor = '#ffb347';
+        percentual.style.boxShadow = '0 0 40px #ffb34733';
+
+        estado.innerHTML = '🟠 Instável';
+        estado.style.background = 'rgba(255,179,71,0.12)';
+        estado.style.color = '#ffd49a';
+
+        mensagem.innerHTML = 'O turno ainda exige atenção.';
+
+    }
+
+    else if(valor < 100){
+
+        document.body.style.background = '#071827';
+
+        percentual.style.borderColor = '#1f8fff';
+        percentual.style.boxShadow = '0 0 45px #1f8fff44';
+
+        estado.innerHTML = '🔵 Bom progresso';
+        estado.style.background = 'rgba(31,143,255,0.12)';
+        estado.style.color = '#9fd0ff';
+
+        mensagem.innerHTML = 'Fluxo operacional controlado.';
+
+    }
+
+    else{
+
+        document.body.style.background = '#081d14';
+
+        percentual.style.borderColor = '#4cff88';
+        percentual.style.boxShadow = '0 0 55px #4cff8855';
+
+        estado.innerHTML = '🟢 Completo';
+        estado.style.background = 'rgba(76,255,136,0.12)';
+        estado.style.color = '#b9ffd2';
+
+        mensagem.innerHTML = 'Todas as atividades concluídas.';
+
+    }
+
+}
+
+const historicoFake = [
+    {
+        data:'27 Maio',
+        valor:78,
+        estado:'Bom progresso',
+        nota:'Fluxo estável pela manhã.'
+    },
+
+    {
+        data:'28 Maio',
+        valor:61,
+        estado:'Instável',
+        nota:'Pendências acumularam após almoço.'
+    },
+
+    {
+        data:'30 Maio',
+        valor:92,
+        estado:'Quase completo',
+        nota:'Excelente controle operacional.'
+    },
+];
+
+historicoFake.forEach(item => {
+
+    historico.innerHTML += `
+
+    <div class="historico-item" onclick="toggleHistorico(this)">
+
+        <div class="historico-top">
+            <span>${item.data}</span>
+            <span>${item.valor}%</span>
+        </div>
+
+        <div class="barra">
+            <div class="preenchimento" style="width:${item.valor}%"></div>
+        </div>
+
+        <div class="historico-expand">
+
+            Estado: ${item.estado}<br>
+            Nota: ${item.nota}
+
+        </div>
+
+    </div>
+
+    `;
+
+});
+
+function toggleHistorico(el){
+
+    const titulo = el.querySelector('.historico-top span').innerText;
+    const detalhes = el.querySelector('.historico-expand').innerHTML;
+
+    document.getElementById('modalTitulo').innerText =
+    titulo + ' • Memória do turno';
+
+    document.getElementById('modalTexto').innerHTML =
+    detalhes;
+
+    document.getElementById('modalHistorico').style.display =
+    'flex';
+
+}
+
+function fecharModal(){
+
+    document.getElementById('modalHistorico').style.display =
+    'none';
+
+}
+
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playClick(){
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(520, audioCtx.currentTime);
+
+    gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.08);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.08);
+}
+
+document.querySelectorAll('input, button').forEach(el => {
+    el.addEventListener('click', playClick);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let anotacoes = [];
+
+function renderizarAnotacoes(){
+
+    const lista = document.getElementById('listaAnotacoes');
+
+    lista.innerHTML = '';
+
+    anotacoes.forEach((texto, index) => {
+
+        const note = document.createElement('div');
+
+        note.className = 'note-item';
+
+        note.innerHTML = `
+
+            <div class="note-text">
+                ${texto}
+            </div>
+
+            <button class="delete-note"
+            onclick="excluirAnotacao(${index})">
+                🗑
+            </button>
+
+        `;
+
+        lista.prepend(note);
+
+    });
+
+}
+
+function adicionarAnotacao(){
+
+    const texto = prompt('Nova anotação');
+
+    if(texto && texto.trim() !== ''){
+
+        anotacoes.push(texto);
+
+        renderizarAnotacoes();
+
+
+function encerrarTurno(){
+
+    let pendencias = [];
+
+    document.querySelectorAll('.task').forEach(task => {
+
+        const checkbox = task.querySelector('input');
+
+        const texto = task.querySelector('label').innerText;
+
+        if(!checkbox.checked){
+            pendencias.push(texto);
+        }
+
+    });
+
+    let resumo = '';
+
+    if(anotacoes.length > 0){
+
+        resumo += '<b>📝 Anotações salvas:</b><br><br>';
+
+        anotacoes.forEach(item => {
+            resumo += '• ' + item + '<br>';
+        });
+
+        resumo += '<br><br>';
+
+    }
+
+    if(pendencias.length > 0){
+
+        resumo += '<b>⚠️ Pontos críticos:</b><br><br>';
+
+        pendencias.forEach(item => {
+            resumo += '• ' + item + '<br><span style="color:#7fbfff;">' + orientacoes[item] + '</span><br><br>';
+        });
+
+    }
+    else{
+
+        resumo += '✅ Nenhuma pendência encontrada.';
+
+    }
+
+    document.getElementById('textoResumo').innerHTML = resumo;
+
+    
+document.getElementById('modalResumo').style.display = 'flex';
+
+localStorage.setItem('ssp_turno_data', hoje);
+
+setTimeout(() => {
+    bloquearTurno();
+}, 300);
+
+
+}
+
+
+function resetarTurno(){
+
+    localStorage.removeItem('ssp_turno_data');
+
+    location.reload();
+
+}
+
+
+function fecharResumo(){
+
+    document.getElementById('modalResumo').style.display = 'none';
+
+}
+
+
+    }
+
+}
+
+function excluirAnotacao(index){
+
+    anotacoes.splice(index,1);
+
+    renderizarAnotacoes();
+
+
+function encerrarTurno(){
+
+    let pendencias = [];
+
+    document.querySelectorAll('.task').forEach(task => {
+
+        const checkbox = task.querySelector('input');
+
+        const texto = task.querySelector('label').innerText;
+
+        if(!checkbox.checked){
+            pendencias.push(texto);
+        }
+
+    });
+
+    let resumo = '';
+
+    if(anotacoes.length > 0){
+
+        resumo += '<b>📝 Anotações salvas:</b><br><br>';
+
+        anotacoes.forEach(item => {
+            resumo += '• ' + item + '<br>';
+        });
+
+        resumo += '<br><br>';
+
+    }
+
+    if(pendencias.length > 0){
+
+        resumo += '<b>⚠️ Pontos críticos:</b><br><br>';
+
+        pendencias.forEach(item => {
+            resumo += '• ' + item + '<br><span style="color:#7fbfff;">' + orientacoes[item] + '</span><br><br>';
+        });
+
+    }
+    else{
+
+        resumo += '✅ Nenhuma pendência encontrada.';
+
+    }
+
+    document.getElementById('textoResumo').innerHTML = resumo;
+
+    
+document.getElementById('modalResumo').style.display = 'flex';
+
+localStorage.setItem('ssp_turno_data', hoje);
+
+setTimeout(() => {
+    bloquearTurno();
+}, 300);
+
+
+}
+
+
+function resetarTurno(){
+
+    localStorage.removeItem('ssp_turno_data');
+
+    location.reload();
+
+}
+
+
+function fecharResumo(){
+
+    document.getElementById('modalResumo').style.display = 'none';
+
+}
+
+
+}
+
+
+
+
+renderizarAnotacoes();
+
+
+function encerrarTurno(){
+
+    let pendencias = [];
+
+    document.querySelectorAll('.task').forEach(task => {
+
+        const checkbox = task.querySelector('input');
+
+        const texto = task.querySelector('label').innerText;
+
+        if(!checkbox.checked){
+            pendencias.push(texto);
+        }
+
+    });
+
+    let resumo = '';
+
+    if(anotacoes.length > 0){
+
+        resumo += '<b>📝 Anotações salvas:</b><br><br>';
+
+        anotacoes.forEach(item => {
+            resumo += '• ' + item + '<br>';
+        });
+
+        resumo += '<br><br>';
+
+    }
+
+    if(pendencias.length > 0){
+
+        resumo += '<b>⚠️ Pontos críticos:</b><br><br>';
+
+        pendencias.forEach(item => {
+            resumo += '• ' + item + '<br><span style="color:#7fbfff;">' + orientacoes[item] + '</span><br><br>';
+        });
+
+    }
+    else{
+
+        resumo += '✅ Nenhuma pendência encontrada.';
+
+    }
+
+    document.getElementById('textoResumo').innerHTML = resumo;
+
+    
+document.getElementById('modalResumo').style.display = 'flex';
+
+localStorage.setItem('ssp_turno_data', hoje);
+
+setTimeout(() => {
+    bloquearTurno();
+}, 300);
+
+
+}
+
+
+function resetarTurno(){
+
+    localStorage.removeItem('ssp_turno_data');
+
+    location.reload();
+
+}
+
+
+function fecharResumo(){
+
+    document.getElementById('modalResumo').style.display = 'none';
+
+}
+
+</script>
+
+
+
+<div class="modalHistorico" id="modalHistorico">
+
+    <div class="modalCard">
+
+        <div class="modalTitulo" id="modalTitulo"></div>
+
+        <div class="modalTexto" id="modalTexto"></div>
+
+        <button class="fechar" onclick="fecharModal()">
+            Fechar
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<div class="modalHistorico" id="modalResumo">
+
+    <div class="modalCard">
+
+        <div class="modalTitulo">
+            📋 Resumo do Turno
+        </div>
+
+        <div class="modalTexto" id="textoResumo"></div>
+
+        <button class="fechar" onclick="fecharResumo()">
+            Fechar
+        </button>
+
+    </div>
+
+</div>
+
+</body>
+</html>
